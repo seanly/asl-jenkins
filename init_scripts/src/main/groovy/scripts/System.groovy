@@ -15,9 +15,8 @@ println("--- Configuring Email global settings")
 JenkinsLocationConfiguration.get().adminAddress = "admin@non.existent.email"
 Mailer.descriptor().defaultSuffix = "@non.existent.email"
 
-
 ArrayList<LibraryConfiguration> customPipelineLibs = []
-def pipelineLibsDir = new File("/var/jenkins_home/pipeline-libs")
+def pipelineLibsDir = new File("/var/pipeline-libs")
 if (pipelineLibsDir.exists()) {
     println("==== Scanning the Pipeline Dev library")
     pipelineLibsDir.eachFile (FileType.DIRECTORIES) { directoryPath ->
