@@ -1,0 +1,20 @@
+version: '3'
+services:
+  jenkins-master:
+    image: registry.cn-hangzhou.aliyuncs.com/k8ops-build/asl-jenkins:v0.1
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+      - 50000:50000
+    environment:
+      JAVA_OPTS: >-
+        -server
+        -Xmx2g -Xms2g
+        -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8
+        -Djenkins.install.runSetupWizard=false
+        -Dhudson.model.LoadStatistics.clock=2000
+        -Dhudson.model.ParametersAction.keepUndefinedParameters=true
+        -Dorg.apache.commons.jelly.tags.fmt.timeZone=Asia/Shanghai
+        -Duser.timezone=Asia/Shanghai
+        -Dcom.sun.jndi.ldap.connect.pool.timeout=300000
+        -Dhudson.security.csrf.DefaultCrumbIssuer.EXCLUDE_SESSION_ID=true
