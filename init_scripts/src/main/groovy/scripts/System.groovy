@@ -5,6 +5,12 @@ import hudson.tasks.Mailer
 import org.jenkinsci.plugins.workflow.libs.*
 import groovy.io.FileType
 
+def jenkins = Jenkins.getInstance()
+
+// No executors on master
+jenkins.setNumExecutors(0)
+jenkins.save()
+
 // TODO: Configure Job Restrictions, Script Security, Authorize Project, etc., etc.
 
 println("--- Configuring Quiet Period")
