@@ -18,6 +18,7 @@ services:
         -Duser.timezone=Asia/Shanghai
         -Dcom.sun.jndi.ldap.connect.pool.timeout=300000
         -Dhudson.security.csrf.DefaultCrumbIssuer.EXCLUDE_SESSION_ID=true
+        -Dasl.root=/data/ant-asl
   jenkins-slave:
     image: registry.cn-hangzhou.aliyuncs.com/k8ops-build/jenkins-slave:swarm-dind
     restart: unless-stopped
