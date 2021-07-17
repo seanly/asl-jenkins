@@ -29,3 +29,4 @@ services:
       - jenkins-master
     environment:
       JENKINS_URL: http://jenkins-master:8080
+      LABELS: docker
