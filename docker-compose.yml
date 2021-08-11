@@ -1,11 +1,15 @@
 version: '3'
 services:
   jenkins-master:
-    image: registry.cn-hangzhou.aliyuncs.com/k8ops-build/asl-jenkins:v0.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: registry.cn-hangzhou.aliyuncs.com/k8ops/asl-jenkins:v0.1
     restart: unless-stopped
     ports:
       - 8080:8080
       - 50000:50000
+      - 5005:5005
     volumes:
       - ../asl-steps:/data/asl-steps
       - ./jenkins_home:/var/jenkins_home
@@ -22,8 +26,9 @@ services:
         -Dcom.sun.jndi.ldap.connect.pool.timeout=300000
         -Dhudson.security.csrf.DefaultCrumbIssuer.EXCLUDE_SESSION_ID=true
         -Dasl.root=/data/asl-steps
+        -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n
   jenkins-slave:
-    image: registry.cn-hangzhou.aliyuncs.com/k8ops-build/jenkins-slave:swarm-dind
+    image: registry.cn-hangzhou.aliyuncs.com/k8ops/jenkins-slave:swarm-dind
     restart: unless-stopped
     privileged: true
     depends_on:

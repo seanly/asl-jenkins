@@ -1,6 +1,6 @@
-FROM registry.cn-hangzhou.aliyuncs.com/k8ops-build/ant-asl:v0.1 as ant-asl
+FROM registry.cn-hangzhou.aliyuncs.com/k8ops/asl-steps:v0.1 as asl-steps
 
-FROM registry.cn-hangzhou.aliyuncs.com/k8ops-build/asl-pipeline-library:v0.1 as apl
+FROM registry.cn-hangzhou.aliyuncs.com/k8ops/asl-pipeline-library:v0.1 as apl
 
 FROM registry.cn-hangzhou.aliyuncs.com/k8ops/jenkins:lts-jdk11
 
@@ -13,6 +13,6 @@ RUN jenkins-plugin-cli --verbose --plugins rebuild \
 COPY --chown=jenkins:jenkins ./asl.hpi /usr/share/jenkins/ref/plugins/
 
 COPY --from=apl /opt/asl-pipeline-library /var/pipeline-libs/apl
-COPY --from=ant-asl /opt/ant-asl /data/ant-asl
+COPY --from=asl-steps /opt/asl-steps /data/asl-steps
 
 COPY init_scripts/src/main/groovy/ /usr/share/jenkins/ref/init.groovy.d/
